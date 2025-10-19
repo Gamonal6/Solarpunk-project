@@ -137,7 +137,7 @@ export default function SignupScreen() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Navigate to main app
-      router.replace('/(tabs)');
+      router.replace('/(tabs)/dashboard');
     } catch (error) {
       Alert.alert('Signup Failed', 'Please try again later.');
     } finally {

@@ -63,7 +63,7 @@ export default function LoginScreen() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Navigate to main app
-      router.replace('/(tabs)');
+      router.replace('/(tabs)/dashboard');
     } catch (error) {
       Alert.alert('Login Failed', 'Please check your credentials and try again.');
     } finally {
