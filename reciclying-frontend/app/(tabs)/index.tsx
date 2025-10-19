@@ -1,98 +1,157 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { BrandColors, Typography, Spacing, Dimensions } from '@/constants/theme';
 
-export default function HomeScreen() {
+export default function WelcomeScreen() {
+  const router = useRouter();
+
+  const handleLoginPress = () => {
+    // Haptic feedback
+    if (Platform.OS === 'ios') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    
+    router.push('/auth/login' as any);
+  };
+
+  const handleSignupPress = () => {
+    // Haptic feedback
+    if (Platform.OS === 'ios') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    
+    router.push('/auth/signup' as any);
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        {/* Logo/Icon placeholder */}
+        <View style={styles.logoContainer}>
+          <View style={styles.logoCircle}>
+            <Ionicons name="leaf" size={48} color={BrandColors.brandEmphasis} />
+          </View>
+        </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        {/* App Title */}
+        <Text style={styles.appTitle}>SOLARPUNK</Text>
+        <Text style={styles.appSubtitle}>RECYCLING</Text>
+
+        {/* Description */}
+        <Text style={styles.description}>
+          Make the campus more sustainable with AI-verified recycling and earn dining points.
+        </Text>
+
+        {/* Action Buttons */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={handleLoginPress}
+            accessibilityLabel="Log in to your account"
+            accessibilityRole="button"
+          >
+            <Text style={[Typography.buttonText, styles.buttonText]}>LOG IN</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.signupButton}
+            onPress={handleSignupPress}
+            accessibilityLabel="Create a new account"
+            accessibilityRole="button"
+          >
+            <Text style={[Typography.buttonText, styles.signupButtonText]}>CREATE ACCOUNT</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    backgroundColor: BrandColors.primaryBackground,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: Spacing.screen,
+    paddingTop: Platform.OS === 'ios' ? 80 : 60,
+    paddingBottom: 40,
+    justifyContent: 'space-between',
+  },
+  logoContainer: {
     alignItems: 'center',
-    gap: 8,
+    marginBottom: 40,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  logoCircle: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: BrandColors.optionalSurface,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 24,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  appTitle: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: BrandColors.primaryInk,
+    textAlign: 'center',
+    letterSpacing: 2,
+  },
+  appSubtitle: {
+    fontSize: 32,
+    fontWeight: '400',
+    color: BrandColors.primaryInk,
+    textAlign: 'center',
+    letterSpacing: 2,
+    marginBottom: 24,
+  },
+  description: {
+    fontSize: 16,
+    color: BrandColors.secondaryInk,
+    textAlign: 'center',
+    lineHeight: 24,
+    marginBottom: 40,
+  },
+  buttonContainer: {
+    gap: 16,
+    marginBottom: 40,
+  },
+  loginButton: {
+    height: Dimensions.buttonHeight,
+    borderRadius: Dimensions.buttonRadius,
+    backgroundColor: BrandColors.brandEmphasis,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // Shadow for iOS
+    ...(Platform.OS === 'ios' ? {
+      shadowColor: BrandColors.black,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.15,
+      shadowRadius: 6,
+    } : {
+      elevation: 3,
+    }),
+  },
+  signupButton: {
+    height: Dimensions.buttonHeight,
+    borderRadius: Dimensions.buttonRadius,
+    borderWidth: 2,
+    borderColor: BrandColors.brandEmphasis,
+    backgroundColor: BrandColors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: BrandColors.white,
+  },
+  signupButtonText: {
+    color: BrandColors.brandEmphasis,
   },
 });
