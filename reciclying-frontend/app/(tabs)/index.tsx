@@ -27,6 +27,16 @@ export default function WelcomeScreen() {
     router.push('/auth/signup' as any);
   };
 
+  const handleBypassLogin = () => {
+    // Haptic feedback
+    if (Platform.OS === 'ios') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    
+    // Navigate directly to dashboard (bypass login)
+    router.replace('/(tabs)/dashboard' as any);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -64,6 +74,16 @@ export default function WelcomeScreen() {
             accessibilityRole="button"
           >
             <Text style={[Typography.buttonText, styles.signupButtonText]}>CREATE ACCOUNT</Text>
+          </TouchableOpacity>
+
+          {/* Bypass Login Button (Development Only) */}
+          <TouchableOpacity
+            style={styles.bypassButton}
+            onPress={handleBypassLogin}
+            accessibilityLabel="Skip login and go to dashboard"
+            accessibilityRole="button"
+          >
+            <Text style={[Typography.buttonText, styles.bypassButtonText]}>VIEW DASHBOARD</Text>
           </TouchableOpacity>
         </View>
 
@@ -153,5 +173,18 @@ const styles = StyleSheet.create({
   },
   signupButtonText: {
     color: BrandColors.brandEmphasis,
+  },
+  bypassButton: {
+    height: Dimensions.buttonHeight,
+    borderRadius: Dimensions.buttonRadius,
+    borderWidth: 2,
+    borderColor: BrandColors.positiveAccent,
+    backgroundColor: BrandColors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  bypassButtonText: {
+    color: BrandColors.positiveAccent,
   },
 });

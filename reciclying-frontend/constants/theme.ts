@@ -141,6 +141,49 @@ export const Typography = {
     color: BrandColors.secondaryInk,
     fontWeight: '400' as const,
   },
+  
+  // Dashboard typography
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: '600' as const,
+    color: BrandColors.primaryInk,
+  },
+  cardBody: {
+    fontSize: 16,
+    fontWeight: '400' as const,
+    color: BrandColors.primaryInk,
+  },
+  cardMeta: {
+    fontSize: 12,
+    fontWeight: '400' as const,
+    color: BrandColors.secondaryInk,
+  },
+  rankNumber: {
+    fontSize: 22,
+    fontWeight: '700' as const,
+    color: BrandColors.primaryInk,
+    letterSpacing: 1,
+  },
+  progressNumber: {
+    fontSize: 20,
+    fontWeight: '700' as const,
+    color: BrandColors.primaryInk,
+  },
+  chipText: {
+    fontSize: 14,
+    fontWeight: '500' as const,
+    color: BrandColors.primaryInk,
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: '500' as const,
+    color: BrandColors.secondaryInk,
+  },
+  tabTextActive: {
+    fontSize: 16,
+    fontWeight: '600' as const,
+    color: BrandColors.brandEmphasis,
+  },
 };
 
 export const Fonts = Platform.select({
@@ -191,4 +234,11 @@ export const Dimensions = {
   iconSize: 24,
   touchTarget: 44,
   dismissButtonSize: 44,
+  // Dashboard specific
+  cardRadius: 16,
+  chipRadius: 16,
+  chipHeight: 28,
+  avatarSize: 44,
+  leaderboardRowHeight: 76,
+  tabBarHeight: 44,
 };
