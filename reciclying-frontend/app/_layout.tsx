@@ -20,6 +20,7 @@ export default function RootLayout() {
         <Stack.Screen name="auth/signup" options={{ headerShown: false }} />
         <Stack.Screen name="challenges/index" options={{ headerShown: false }} />
         <Stack.Screen name="streak/[id]" options={{ headerShown: false }} />
+        <Stack.Screen name="profileScreens" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>
       <StatusBar style="auto" />

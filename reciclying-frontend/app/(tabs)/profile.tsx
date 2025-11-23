@@ -10,6 +10,35 @@ import {
 import { BrandColors } from '@/constants/theme';
 import { useRouter } from 'expo-router';
 
+/* ------------------ STAMP SECTION ------------------ */
+function StampSection() {
+  const router = useRouter();
+  
+  return (
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <Text style={styles.cardTitle}>Stamps</Text>
+        <Pressable onPress={() => router.push('/profileScreens/stamps' as any)}>
+          <Text style={styles.seeAll}>see all</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.stampRow}>
+        <View style={styles.stampCard}>
+          <Text style={styles.stamp}>🔥</Text>
+          <Text style={styles.label}>12-day streak</Text>
+        </View>
+
+        <View style={styles.stampCard}>
+          <Text style={styles.stamp}>♻️</Text>
+          <Text style={styles.label}>5 items recycled</Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+/* ------------------ PROFILE SCREEN ------------------ */
 export default function ProfileScreen() {
   return (
     <View style={styles.container}>
@@ -20,9 +49,11 @@ export default function ProfileScreen() {
           <CalendarPreview />
         </View>
 
-        {/* Stamp Section placeholder */}
+        <View style={styles.section}>
+          <StampSection />
+        </View>
 
-        <View>
+        <View style={styles.section}>
           <PointsActivity />
         </View>
       </ScrollView>
@@ -30,9 +61,7 @@ export default function ProfileScreen() {
   );
 }
 
-/* -----------------------------------------------------------
-   PROFILE HEADER
------------------------------------------------------------ */
+/* ------------------ PROFILE HEADER ------------------ */
 function ProfileHeader() {
   return (
     <View style={styles.headerContainer}>
@@ -48,34 +77,35 @@ function ProfileHeader() {
       <View style={styles.headerRowStats}>
         <View style={styles.statBox}>
           <Text style={styles.statLabel}>Points</Text>
-          <Text style={styles.statBig}>(# points)</Text>
+          <Text style={styles.statBig}>30,000</Text>
         </View>
 
         <View style={styles.statBox}>
           <Text style={styles.statLabel}>Longest Streak</Text>
-          <Text style={styles.statBig}>Streak #</Text>
+          <Text style={styles.statBig}>12 Days</Text>
         </View>
 
         <View style={styles.statBox}>
           <Text style={styles.statLabel}>Recycled</Text>
-          <Text style={styles.statBig}># Recycled</Text>
+          <Text style={styles.statBig}>5 Items</Text>
         </View>
       </View>
     </View>
   );
 }
 
-/* -----------------------------------------------------------
-   CALENDAR PREVIEW
------------------------------------------------------------ */
+/* ------------------ CALENDAR PREVIEW ------------------ */
 function CalendarPreview() {
+  const router = useRouter();
   const days = ['22', '23', '24', '25', '26', '27', '28'];
 
   return (
     <View style={styles.card}>
       <View style={styles.cardHeaderRow}>
         <Text style={styles.cardTitle}>Calendar</Text>
-        <Text style={styles.seeAll}>see all</Text>
+        <Pressable onPress={() => router.push('/profileScreens/calendar' as any)}>
+          <Text style={styles.seeAll}>see all</Text>
+        </Pressable>
       </View>
 
       <View style={styles.calendarRow}>
@@ -90,16 +120,18 @@ function CalendarPreview() {
   );
 }
 
-/* -----------------------------------------------------------
-   POINTS ACTIVITY
------------------------------------------------------------ */
+/* ------------------ POINTS ACTIVITY ------------------ */
 function PointsActivity() {
   const router = useRouter();
 
   const items = [
-    { date: 'Sep 05, 2025', action: 'Recycled', points: 5000 },
+    { date: 'Sep 28, 2025', action: 'Recycled', points: 2000 },
+    { date: 'Sep 23, 2025', action: 'Recycled', points: 5000 },
+    { date: 'Sep 12, 2025', action: 'Recycled', points: 3000 },
+    { date: 'Aug 22, 2025', action: 'Recycled', points: 2500 },
     { date: 'Aug 15, 2025', action: 'Recycled', points: 1500 },
-    { date: 'Aug 15, 2025', action: 'Recycled', points: 1500 },
+    { date: 'Aug 1, 2025', action: 'Recycled', points: 1500 },
+    { date: 'July 25, 2025', action: 'Recycled', points: 3200 },
   ];
 
   return (
@@ -107,7 +139,7 @@ function PointsActivity() {
       <View style={styles.cardHeaderRow}>
         <Text style={styles.cardTitle}>Points Activity</Text>
 
-        <Pressable onPress={() => router.push('./PointsHistory')}>
+        <Pressable onPress={() => router.push('/profileScreens' as any)}>
           <Text style={styles.seeAll}>see all</Text>
         </Pressable>
       </View>
@@ -125,9 +157,7 @@ function PointsActivity() {
   );
 }
 
-/* -----------------------------------------------------------
-   STYLES
------------------------------------------------------------ */
+/* ------------------ STYLES ------------------ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -186,7 +216,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.12,
     shadowRadius: 8,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 0,
   },
   cardHeaderRow: {
     flexDirection: 'row',
@@ -222,11 +252,39 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
 
+  /* Stamp Section */
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  stampRow: {
+    flexDirection: 'row',
+    gap: 14,
+  },
+  stampCard: {
+    flex: 1,
+    padding: 15,
+    backgroundColor: '#fff7e7',
+    borderRadius: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ffdfb0',
+  },
+  stamp: {
+    fontSize: 32,
+    marginBottom: 8,
+  },
+  label: {
+    fontSize: 12,
+    color: '#333',
+  },
+
   /* Points Activity */
   activityRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 20,
   },
   action: {
     fontSize: 14,
