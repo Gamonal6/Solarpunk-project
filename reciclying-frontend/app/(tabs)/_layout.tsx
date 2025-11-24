@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
@@ -28,6 +29,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
+      
       <Tabs.Screen
         name="dashboard"
         options={{
@@ -35,6 +37,15 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="chart.bar.fill" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+        name="rewards"
+        options={{
+          title: 'Rewards',
+          tabBarIcon: ({ color }) => <Ionicons name="gift" size={28} color={color} />,
+        }}
+      />
+
       <Tabs.Screen
         name="profile"
         options={{
@@ -43,5 +54,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    
   );
 }

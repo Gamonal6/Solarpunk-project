@@ -49,9 +49,8 @@ export default function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header with time and close button */}
+      {/* Header with close button */}
       <View style={styles.header}>
-        <Text style={styles.time}>9:41</Text>
         <Pressable onPress={() => router.back()} style={styles.closeButton}>
           <Text style={styles.closeIcon}>X</Text>
         </Pressable>
@@ -99,7 +98,7 @@ export default function CalendarScreen() {
               <Text style={[
                 styles.dayNumber,
                 isPast && !isActive && styles.pastDay,
-                isActive && styles.activeDay
+                isActive && styles.activeDayGreen
               ]}>
                 {String(day).padStart(2, '0')}
               </Text>
@@ -115,19 +114,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingTop: Platform.OS === 'ios' ? 60 : 40,
+    paddingTop: Platform.OS === 'ios' ? 30 : 10,
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 15,
-  },
-  time: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
+    paddingTop: 10,
+    paddingBottom: 5,
   },
   closeButton: {
     padding: 5,
@@ -142,15 +137,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 10,
   },
   navArrow: {
-    fontSize: 24,
-    color: BrandColors.brandEmphasis,
+    fontSize: 28,
+    color: BrandColors.accentOutline,
     fontWeight: '600',
   },
   monthTitle: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '700',
     color: BrandColors.brandEmphasis,
     letterSpacing: 1,
@@ -158,13 +153,13 @@ const styles = StyleSheet.create({
   daysHeader: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: BrandColors.borders,
   },
   dayName: {
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: '600',
     color: BrandColors.secondaryInk,
     flex: 1,
@@ -175,25 +170,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 15,
-    paddingBottom: 10,
+    paddingBottom: 5,
   },
   streakDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#DC2626',
-    marginRight: 6,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: BrandColors.brandEmphasis,
+    marginRight: 8,
   },
   streakText: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: '#DC2626',
+    fontSize: 14,
+    fontWeight: '700',
+    color: BrandColors.brandEmphasis,
+    letterSpacing: 0.5,
   },
   calendarGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 10,
-    paddingTop: 10,
+    paddingHorizontal: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
   },
   calendarDay: {
     width: '14.28%',
@@ -201,9 +198,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+    minHeight: 50,
   },
   dayNumber: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '500',
     color: '#000',
   },
@@ -214,12 +212,18 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: '600',
   },
+  activeDayGreen: {
+    color: BrandColors.brandEmphasis, // Green color for streak days
+    fontWeight: '700',
+    fontSize: 19,
+  },
   activeCircle: {
     position: 'absolute',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#FFB6C1', // Pink color
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: BrandColors.brandEmphasis, // Green color to match streak
+    opacity: 0.2, // Subtle background highlight
     zIndex: -1,
   },
 });

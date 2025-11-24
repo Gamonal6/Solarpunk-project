@@ -97,7 +97,17 @@ function ProfileHeader() {
 /* ------------------ CALENDAR PREVIEW ------------------ */
 function CalendarPreview() {
   const router = useRouter();
-  const days = ['22', '23', '24', '25', '26', '27', '28'];
+  // October to November dates: October 22-31, November 1-4
+  const days = ['22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '1', '2', '3', '4'];
+  
+  // Days that should be highlighted (have green circle)
+  // Matching calendar.tsx activeDates pattern [22, 23, 24, 25, 26, 27, 28, 29, 30]
+  // Applied to October: 22-30, plus November 1 if we want to continue the pattern
+  const highlightedDays = ['22', '23', '24', '25', '26', '27', '28', '29', '30'];
+
+  // Split days into two rows
+  const firstRow = days.slice(0, 7);
+  const secondRow = days.slice(7, 14);
 
   return (
     <View style={styles.card}>
@@ -108,13 +118,29 @@ function CalendarPreview() {
         </Pressable>
       </View>
 
-      <View style={styles.calendarRow}>
-        {days.map((day) => (
-          <View key={day} style={styles.circleContainer}>
-            <View style={styles.circle} />
-            <Text style={styles.dayLabel}>{day}</Text>
-          </View>
-        ))}
+      <View style={styles.calendarContainer}>
+        <View style={styles.calendarRow}>
+          {firstRow.map((day) => {
+            const isHighlighted = highlightedDays.includes(day);
+            return (
+              <View key={day} style={styles.circleContainer}>
+                <View style={isHighlighted ? styles.circle : styles.circleGrey} />
+                <Text style={styles.dayLabel}>{day}</Text>
+              </View>
+            );
+          })}
+        </View>
+        <View style={styles.calendarRow}>
+          {secondRow.map((day) => {
+            const isHighlighted = highlightedDays.includes(day);
+            return (
+              <View key={day} style={styles.circleContainer}>
+                <View style={isHighlighted ? styles.circle : styles.circleGrey} />
+                <Text style={styles.dayLabel}>{day}</Text>
+              </View>
+            );
+          })}
+        </View>
       </View>
     </View>
   );
@@ -233,6 +259,9 @@ const styles = StyleSheet.create({
   },
 
   /* Calendar */
+  calendarContainer: {
+    gap: 10,
+  },
   calendarRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -246,6 +275,13 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderWidth: 3,
     borderColor: BrandColors.brandEmphasis,
+  },
+  circleGrey: {
+    width: 20,
+    height: 20,
+    borderRadius: 999,
+    borderWidth: 3,
+    borderColor: '#D0D0D0',
   },
   dayLabel: {
     marginTop: 4,
